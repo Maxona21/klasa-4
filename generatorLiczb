@@ -1,0 +1,50 @@
+using System;
+
+namespace Lotto
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Podaj liczbę zestawów do wylosowania: ");
+            if (!int.TryParse(Console.ReadLine(), out int n) || n <=0 ) return;
+
+            int[,] lotto = new int[n, 6];
+
+            RandomS(lotto);
+            ShowRandom(lotto);
+        }
+        static void RandomS(int[,] tab)
+        {
+            var rand = new Random();
+            for (int i = 0; i < tab.GetLength(0); i++)
+            {
+                HashSet<int> unique = new HashSet<int>();
+                while (unique.Count < 6)
+                {
+                    unique.Add(rand.Next(1, 50));
+
+                    int column = 0;
+                    foreach (int x in unique)
+                    {
+                        tab[i, column++] = x;
+                    }
+                }
+            }
+        }
+
+        static void ShowRandom(int[,] tab)
+        {
+            Console.WriteLine("Cóż to za wyniki");
+            for (int i = 0; i < tab.GetLength(0); i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    Console.WriteLine(tab[i, j]+ " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+    }
+}
